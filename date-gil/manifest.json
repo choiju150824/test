@@ -1,0 +1,15 @@
+{
+  "name": "데이트길잡이",
+  "short_name": "데이트길잡이",
+  "description": "두 사람의 성향·취향·상황을 합친 맞춤 데이트 코스 추천",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF6EE",
+  "theme_color": "#FFF6EE",
+  "lang": "ko",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
