@@ -1,0 +1,15 @@
+{
+  "name": "GROW 근성장 트레이너",
+  "short_name": "GROW",
+  "description": "부위·발달도·컨셉 기반 루틴 생성과 자동 점진적 과부하",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "lang": "ko",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

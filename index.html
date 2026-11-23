@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>GROW · 근성장 트레이너</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">GROW<span>근성장 트레이너</span></div>
+    <div id="topInfo" class="top-info"></div>
+  </header>
+
+  <main id="view"></main>
+
+  <div id="restBar" class="rest-bar hidden">
+    <div class="rest-label">휴식</div>
+    <div id="restTime" class="rest-time">0:00</div>
+    <div class="rest-progress"><div id="restFill"></div></div>
+    <button data-action="rest-add" class="btn small ghost">+15초</button>
+    <button data-action="rest-skip" class="btn small">건너뛰기</button>
+  </div>
+
+  <nav class="tabbar">
+    <button data-tab="today" class="active"><span>🏋️</span>오늘 운동</button>
+    <button data-tab="history"><span>📅</span>기록</button>
+    <button data-tab="progress"><span>📈</span>성장</button>
+    <button data-tab="settings"><span>⚙️</span>설정</button>
+  </nav>
+
+  <div id="modal" class="modal hidden"><div class="modal-box" id="modalBox"></div></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
