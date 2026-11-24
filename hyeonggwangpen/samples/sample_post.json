@@ -1,0 +1,27 @@
+{
+  "id": "SAMPLE-test",
+  "run_at": "2026-11-25 15:50 KST",
+  "slot": "15:50",
+  "action": "post",
+  "issue": "[렌더 테스트용 가상 데이터] 샘플전자 자사주 소각",
+  "category": "기업",
+  "companies": ["샘플전자"],
+  "slides": [
+    {"n": 1, "role": "cover", "kicker": "샘플전자 · 11월 25일", "title": ["자사주 3조", "왜 태울까?"], "highlight": "태울까",
+     "sub": "렌더링 테스트용 가상 데이터입니다", "handwriting": "근데 소각이 뭐야?",
+     "visual": {"type": "icon", "names": ["building", "coin"], "symbol": "₩", "label": "테스트 데이터"}, "alt": "샘플"},
+    {"n": 2, "role": "what", "label": "무슨 일", "body": ["샘플전자가 자사주 3조 원어치를 소각한다고 공시했다.", "소각하면 전체 주식 수가 줄어든다."],
+     "handwriting": "주식 수가 줄면 뭐가 달라질까?", "visual": {"type": "icon", "name": "document"}, "alt": "샘플"},
+    {"n": 3, "role": "numbers", "label": "숫자로 보면", "body": ["최근 3년 소각 규모는 꾸준히 늘었다."],
+     "visual": {"type": "columns", "items": [{"label": "2023", "value": 0.5, "display": "0.5조"}, {"label": "2024", "value": 1.2, "display": "1.2조"}, {"label": "2025", "value": 1.8, "display": "1.8조"}, {"label": "2026", "value": 3.0, "display": "3조", "color": "up"}], "basis": "공시 기준, 가상 데이터"}, "alt": "샘플"},
+    {"n": 4, "role": "scene", "label": "같은 돈, 다른 선택", "body": ["배당은 현금을, 소각은 지분율을 돌려준다."],
+     "visual": {"type": "versus", "left": {"label": "배당", "icon": "coin", "text": "주주에게 현금을 바로 나눠 준다"}, "right": {"label": "소각", "icon": "arrow_down", "text": "주식 수를 줄여 1주의 몫을 키운다"}}, "alt": "샘플"},
+    {"n": 5, "role": "context", "label": "함께 봐야 할 점", "body": ["소각이 곧 주가 상승을 뜻하지는 않는다."], "handwriting": "실적이 먼저야",
+     "visual": {"type": "checklist", "items": ["실적이 받쳐 주는지", "소각 일정이 확정됐는지", {"text": "주가 상승 보장은 아니다", "checked": false}]}, "alt": "샘플"},
+    {"n": 6, "role": "final", "label": "다음 일정", 
+     "visual": {"type": "timeline", "items": [{"date": "12월 10일", "text": "이사회 소각 결의 예정"}, {"date": "12월 20일", "text": "소각 완료 공시 예정"}]}, "alt": "샘플"}
+  ],
+  "caption": "샘플",
+  "hashtags": ["#형광펜뉴스"],
+  "sources": [{"name": "가상 공시(테스트)", "url": "", "published": "2026-11-25"}]
+}

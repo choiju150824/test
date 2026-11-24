@@ -1,0 +1,27 @@
+{
+  "confirm_mode": false,
+  "approve_within_minutes": 120,
+  "cards_repo_url": "https://github.com/choiju150824/hyeonggwangpen-cards",
+  "raw_base": "https://raw.githubusercontent.com/choiju150824/hyeonggwangpen-cards/main",
+  "disclaimer_short": "정보 제공용 · 투자 권유 아님",
+  "disclaimer_full": "이 콘텐츠는 공개된 공시·보도를 바탕으로 만든 정보 제공용 자료이며, 특정 종목의 매수·매도·보유를 권유하지 않습니다. 투자 판단과 그 결과에 대한 책임은 투자자 본인에게 있습니다.",
+  "hide_comment_patterns": [
+    "open\\.kakao",
+    "오픈\\s*채팅",
+    "오픈톡",
+    "t\\.me/",
+    "텔레그램",
+    "telegram",
+    "리딩\\s*방",
+    "수익\\s*보장",
+    "고수익",
+    "원금\\s*보장",
+    "무료\\s*추천주",
+    "종목\\s*상담",
+    "카톡\\s*문의",
+    "DM\\s*주세요",
+    "선물\\s*리딩",
+    "급등주\\s*무료",
+    "(형광펜뉴스|운영자|관리자)\\s*(입니다|공식)"
+  ]
+}

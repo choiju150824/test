@@ -1,0 +1,10 @@
+out/
+pending/
+__pycache__/
+*.tmp
+runs/
+run.lock
+Gaegu,Gothic_A1/
+log.json
+log.json.tmp
+hgp_log.json
