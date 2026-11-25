@@ -78,6 +78,55 @@ def verify_evidence(post):
     return errs
 
 
+DEBATE_BANNED = [
+    r"충격", r"난리", r"분노", r"폭발", r"참사", r"발칵", r"경악", r"개미(는|들은)", r"틀딱", r"좌파", r"우파", r"좌빨", r"빨갱이",
+    r"토착왜구", r"매국", r"국민의힘", r"민주당", r"조국혁신당", r"개혁신당", r"진보당", r"보수\s*진영", r"진보\s*진영",
+    r"(이|가)\s*맞다", r"잘못(됐|되었)다", r"옳다", r"말도\s*안\s*(되|돼)", r"당연히", r"일각에서는", r"누리꾼", r"네티즌",
+]
+ANON_WHO = re.compile(r"일각|누리꾼|네티즌|익명|일부\s*(사람|투자자)|업계\s*관계자")
+
+
+def check_debate(post, log, now):
+    """쟁점 소개 피드: 양쪽 다 이름 있는 주체·근거, 비슷한 분량, 열린 질문, 편들기·정치 구도 금지, 하루 2개·연속 금지."""
+    d = post.get("debate")
+    if not d:
+        return []
+    errs = []
+    sides = d.get("sides") or []
+    keys = {e.get("key") for e in post.get("evidence") or []}
+    if len(sides) < 2:
+        errs.append("쟁점: debate.sides가 2개 미만 — 양쪽 논리를 모두 소개할 것")
+    for i, sd in enumerate(sides, 1):
+        who = (sd.get("who") or "").strip()
+        if not who or ANON_WHO.search(who):
+            errs.append(f"쟁점: {i}번째 쪽의 주체(who)가 없거나 익명 — 기관·기업·단체 이름을 붙일 것")
+        if not (sd.get("claim") or "").strip():
+            errs.append(f"쟁점: {i}번째 쪽의 논리(claim)가 비어 있음")
+        if sd.get("evidence_key") not in keys:
+            errs.append(f"쟁점: {i}번째 쪽의 evidence_key가 evidence에 없음")
+    lens = [len(sd.get("claim") or "") for sd in sides]
+    if len(lens) >= 2 and min(lens) and max(lens) / min(lens) > 1.6:
+        errs.append("쟁점: 양쪽 논리 분량 차이가 큼 — 비슷하게 맞출 것")
+    q = (d.get("question") or "").strip()
+    cap = full_caption(post)
+    if not q.endswith("?"):
+        errs.append("쟁점: debate.question(열린 질문, '?'로 끝남)이 없음")
+    elif q not in cap:
+        errs.append("쟁점: 열린 질문이 캡션에 없음")
+    texts = [cap] + [json.dumps(s, ensure_ascii=False) for s in post.get("slides", [])]
+    for pat in DEBATE_BANNED:
+        m = next((re.search(pat, t) for t in texts if re.search(pat, t)), None)
+        if m:
+            errs.append(f"쟁점: 편들기·자극·정치 구도 표현 '{m.group(0)}'")
+    posted = [p for p in log["posts"] if p.get("status") == "posted" and p.get("time")]
+    today = now.strftime("%Y-%m-%d")
+    if sum(1 for p in posted if p.get("date") == today and p.get("debate")) >= 2:
+        errs.append("쟁점 피드는 하루 2개까지 — 오늘은 이미 2개")
+    if posted and posted[-1].get("debate"):
+        errs.append("쟁점 피드를 연달아 두 회차 올릴 수 없음")
+    return errs
+
+
 def notify(title, text):
     """윈도 알림 풍선. 실패해도 게시 흐름은 멈추지 않는다."""
     ps = (
@@ -182,6 +231,7 @@ def validate(post, log, now):
             errs.append("카드에 이모지 사용")
             break
     errs += check_caption_icons(cap)
+    errs += check_debate(post, log, now)
     for pat in BANNED:
         for t in texts:
             m = re.search(pat, t)
@@ -329,6 +379,7 @@ def publish_now(post, pngs, cfg, delay=True):
         "permalink": info.get("permalink", ""), "time": fmt_kst(t), "post_id": pid,
         "sources": post.get("sources", []),
         "stale": bool((post.get("verification") or {}).get("freshness_override")),
+        "debate": bool(post.get("debate")),
     })
     log = load_log()
     log["posts"].append(entry)

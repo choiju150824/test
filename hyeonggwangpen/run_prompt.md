@@ -7,13 +7,14 @@
    - `should_run`이 false면: 사후 관리와 `python comments.py scan`만 한다. 사후 관리는 `followup_candidate`가 있을 때 후속·정정 보도와 정정공시를 확인하고 `status.py followup`으로 기록하는 것이다. 그리고 끝낸다.
 3. 실행할 회차면 아래 순서로 진행한다.
    1) 후보 찾기: 국내(공시·기업)와 해외(미국 빅테크·인기 종목)를 모두 검색해 후보를 5개 이상 모은다.
+      - 후보 중 하나 이상은 투자자끼리 의견이 갈리는 쟁점(prompt.md 2-2장)으로 찾아 본다. 오늘 쟁점 피드가 2개이거나 직전 게시물이 쟁점이면 제외한다.
       - 각 후보를 점수로 매긴다: 투자자 관심도·화제성(3) + 출처 신뢰도(3) + 그림 포인트(2) + 새로움(2).
       - `candidates`에 상위 3개 이상을 [{"issue", "score", "why", "first_seen"}]로 남기고, 가장 높은 것을 고른다.
    2) 1차 출처 원문 확인과 교차 확인을 한다(3-1장). 그리고 `posts\YYYYMMDD-HHMM.json`을 작성한다.
    3) `python render.py`를 실행하고, 모든 PNG를 Read로 직접 열어 육안 검수한다.
    4) 독립 검수: Agent 도구로 새 검수자를 띄운다(fork 말고 general-purpose).
       - 검수자에게 준다: JSON 경로, PNG 경로, evidence URL.
-      - 검수자가 하는 일: 카드와 캡션의 모든 숫자·날짜·이름·직함을 원문과 다시 대조하고, 과장·추측·권유 표현과 표지 낚시를 찾아 pass/fail과 이유를 돌려준다.
+      - 검수자가 하는 일: 카드와 캡션의 모든 숫자·날짜·이름·직함을 원문과 다시 대조하고, 과장·추측·권유 표현과 표지 낚시를 찾아(쟁점 피드면 양쪽 분량·주체 실명·계정의 편들기·정치 구도도 확인) pass/fail과 이유를 돌려준다.
       - fail이면 고친 뒤 한 번 더 검수받는다. 또 fail이면 skip한다.
       - 결과는 `review`: {"independent": true, "result": "pass", "notes": "..."}로 남긴다.
    5) `python publish.py prepare <json>`으로 게시한다.

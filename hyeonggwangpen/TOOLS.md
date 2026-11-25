@@ -108,3 +108,21 @@
 - 허용 도구: Read/Write/Edit/Glob/Grep/WebSearch/WebFetch/Agent, Bash(python·curl·git·ls·cat·mkdir)만.
 - `config.json`의 `confirm_mode`가 false면 바로 게시, true면 승인 대기.
 - 끄기: `Get-ScheduledTask -TaskPath "\hyeonggwangpen\" | Disable-ScheduledTask`
+
+## 쟁점 소개 피드 (prompt.md 2-2장)
+갈리는 주제를 소개할 때만 `debate` 블록을 넣는다. 넣으면 publish.py가 아래를 검사한다.
+```json
+"debate": {
+  "question": "여러분은 어느 쪽인가요?",
+  "sides": [
+    {"who": "금융위원회", "claim": "한쪽 논리 한 줄", "evidence_key": "side_a"},
+    {"who": "OO투자자협회", "claim": "다른 쪽 논리 한 줄", "evidence_key": "side_b"}
+  ]
+}
+```
+- `who`: 이름 있는 기관·기업·단체·증권사. "일각·누리꾼·업계 관계자" 같은 익명 주체는 거부된다.
+- `evidence_key`: 그 쪽의 발언·자료를 담은 evidence 묶음. 1차 출처나 언론 2곳 규칙은 그대로 적용된다.
+- 양쪽 `claim` 길이 차이는 1.6배 이내. `question`은 '?'로 끝나고, 캡션에 그대로 들어가야 한다.
+- 카드에서는 `versus`(left/right) 또는 `columns`로 양쪽을 같은 크기로 보여 준다. 마지막 본문 장의 headline으로 질문을 쓴다.
+- 거부되는 표현: 충격·난리·분노·경악, 정당 이름, 좌파·우파, "~가 맞다/옳다/잘못됐다", 집단 조롱.
+- 하루 2개까지, 직전 게시물도 쟁점이면 거부된다. 로그에는 `debate: true`로 남는다.
